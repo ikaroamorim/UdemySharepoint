@@ -14,7 +14,7 @@
 	</SharePoint:ScriptBlock>
 <SharePoint:StyleBlock runat="server">
 body #s4-leftpanel {
-	display:none;
+	display:none; 
 }
 .s4-ca {
 	margin-left:0px;
