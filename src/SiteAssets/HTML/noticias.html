@@ -17,7 +17,7 @@
       var app = angular.module("appNoticias", []);
 
       app.controller("controllerNoticias", function($scope){
-         getItems($scope, 'Notícias', '?$select=Title,DataPublicacao,TipoNoticia,LinkNoticia');
+         getItems($scope, 'Notícias', '?$select=Title,DataPublicacao,TipoNoticia,LinkNoticia,ImagemNoticia');
       })
    </script>
 </head>
@@ -27,10 +27,11 @@
       <div ng-controller="controllerNoticias">
          <div ng-repeat="noticia in items">
             <div class="card" style="width: 18rem;">
+               <img src="{{ noticia.ImagemNoticia.Url}}" class="card-img-top" alt=".{{ noticia.ImagemNoticia.Url}}.">
                <div class="card-body">
                  <h5 class="card-title">{{noticia.Title}}</h5>
-                 <p class="card-text">{{noticia.DataPublicacao}}</p>
-                 <a href={{noticia.LinkNoticia.Url}} class="btn btn-primary">Link da Notícia</a>
+                 <div class="card-text" ng-bind="formatarData('{{noticia.DataPublicacao}}')"></div>
+                 <a href="{{noticia.LinkNoticia.Url}}" class="btn btn-primary">Link da Notícia</a>
                </div>
              </div>
          </div>
