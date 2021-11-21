@@ -1,0 +1,12 @@
+{
+    "sourceDirectory": "src",
+    "sharePointSiteUrl": "https://ikarocompany01.sharepoint.com/sites/CursoUdemy",
+    "workspaceRoot": "d:\\Repos\\Udemy\\UdemySharepoint",
+    "publishWorkspaceOptions": {
+        "destinationFolder": "/",
+        "globPattern": "d:\\Repos\\Udemy\\UdemySharepoint\\src\\**\\*.*",
+        "localRoot": "d:\\Repos\\Udemy\\UdemySharepoint\\src"
+    },
+    "publishingScope": "SaveOnly",
+    "authenticationType": "Digest"
+}
