@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,25 +17,38 @@
       //1º Criação do módulo e definiçao do seu nome
       var app = angular.module("appNoticias", []);
 
-      app.controller("controllerNoticias", function($scope){
-         getItems($scope, 'Notícias', '?$select=Title,DataPublicacao,TipoNoticia,LinkNoticia,ImagemNoticia');
+      app.controller("controllerNoticias", function ($scope) {
+         let select = '?$select=Title,DataPublicacao,TipoNoticia,LinkNoticia,ImagemNoticia&?$orderby=DataPublicacao desc';
+         let order = '&?$orderby=DataPublicacao desc';
+
+         let query = select + order;
+
+         getItems($scope, 'Notícias', query);
       })
    </script>
 </head>
+
 <body>
    <div class="container" ng-app="appNoticias">
       <div ng-controller="controllerNoticias">
-         <div ng-repeat="noticia in items">
+         <div ng-repeat="noticia in items | orderBy: DataPublicacao : true">
             <div class="card" style="width: 18rem;">
-               <img src="{{ noticia.ImagemNoticia.Url}}" class="card-img-top" alt=".{{ noticia.ImagemNoticia.Url}}.">
-               <div class="card-body">
-                 <h5 class="card-title">{{noticia.Title}}</h5>
-                 <div class="card-text" ng-bind="formatarData('{{noticia.DataPublicacao}}')"></div>
-                 <a href="{{noticia.LinkNoticia.Url}}" class="btn btn-primary">Link da Notícia</a>
+               <div ng-if="noticia.ImagemNoticia === null">
+                  <img src="../SiteAssets/images/placeHolderNews.jpg" class="card-img-top" alt="Imagem Placeholder">
                </div>
-             </div>
+               <div ng-if="noticia.ImagemNoticia !== null">
+                  <img src="{{ noticia.ImagemNoticia.Url }}" class="card-img-top"
+                     alt=".{{ noticia.ImagemNoticia.Url }}.">
+               </div>
+               <div class="card-body">
+                  <h5 class="card-title">{{noticia.Title}}</h5>
+                  <div class="card-text" ng-bind="formatarData('{{noticia.DataPublicacao}}')"></div>
+                  <a href="{{noticia.LinkNoticia.Url}}" class="btn btn-primary">Link da Notícia</a>
+               </div>
+            </div>
          </div>
       </div>
    </div>
 </body>
+
 </html>

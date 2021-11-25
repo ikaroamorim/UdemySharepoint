@@ -1,7 +1,7 @@
 function getItems($scope, listName, query) {
    var data = [];
 
-   var optionDate = { year:"numeric", month:"long", day:"numeric"};
+   var optionDate = { year: "numeric", month: "long", day: "numeric" };
 
    $.ajax({
       url: `/sites/CursoUdemy/_api/lists/getbytitle('${listName}')/items${query}`,
@@ -11,11 +11,9 @@ function getItems($scope, listName, query) {
       },
       async: false,
       success: function (data) {
-         //console.log(data);
          $scope.items = data.d.results;
-         $scope.formatarData = function(dataPublicacao){
-            var data = new Date(dataPublicacao).toLocaleDateString("pt-BR",optionDate);
-            console.log('retorno data:',data)
+         $scope.formatarData = function (dataPublicacao) {
+            var data = new Date(dataPublicacao).toLocaleDateString("pt-BR", optionDate);
             return data;
          }
       },
