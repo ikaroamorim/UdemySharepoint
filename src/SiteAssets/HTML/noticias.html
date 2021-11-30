@@ -27,6 +27,13 @@
          let query = select + expanded + order;
 
          getItems($scope, $sce, 'Notícias', query);
+
+
+         addItem($scope, 'Localidades');
+
+         updateItem($scope, 'Localidades');
+
+         deleteItem($scope, 'Localidades');
       })
    </script>
 </head>
@@ -38,8 +45,44 @@
             <div class="row gy-2">
                <h1>Notícias</h1>
             </div>
+            <div class="row">
+               <div class="col">
+                  <div class="mb-3">
+                     <legend>Criação de Item</legend>
+                     <label for="novaLocalidade" class="form-label">Nova Localidade</label>
+                     <input type="text" class="form-control" id="novaLocalidade" aria-describedby="novaLocalidadeHelp"
+                        ng-model="textoLocalidade">
+                     <div id="novaLocalidadeHelp" class="form-text">Digite uma nova Localidade a ser incluída</div>
+                  </div>
+                  <button type="button" class="btn btn-primary" value="Inserir"
+                     ng-click="inserirLocalidade(textoLocalidade)">Criar</button>
+               </div>
+               <div class="col">
+                  <div class="mb-3">
+                     <legend>Edição de Item</legend>
+                     <label for="novaLocalidadeUpdate" class="form-label">Atualizar Localidade</label>
+                     <input type="text" class="form-control" id="novaLocalidadeUpdate" ng-model="textoLocalidadeUpdate">
+                     <label for="novaLocalidadeUpdateId" class="form-label">Id Localidade</label>
+                     <input type="number" class="form-control" id="novaLocalidadeUpdateId"
+                        ng-model="textoLocalidadeUpdateId">
+                  </div>
+                  <button type="button" class="btn btn-primary" value="Atualizar"
+                     ng-click="atualizarLocalidade(textoLocalidadeUpdate,textoLocalidadeUpdateId)">Atualizar</button>
+               </div>
+               <div class="col">
+                  <div class="mb-3">
+                     <legend>Deleção de Item</legend>
+                     <label for="localidadeDeletionId" class="form-label">Id Localidade</label>
+                     <input type="number" class="form-control" id="localidadeDeletionId"
+                        ng-model="textoLocalidadeDeletionId">
+                  </div>
+                  <button type="button" class="btn btn-danger" value="Deletar"
+                     ng-click="deletarLocalidade(textoLocalidadeDeletionId)">Deletar</button>
+               </div>
+            </div>
             <div class="row gy-2">
-               <div class="col-10">
+               <legend>Filtros</legend>
+               <div class="col-12">
                   <label for="newsSelector" class="form-label">Selecione a Notícia</label>
                   <input type="text" class="form-control" id="newsSelector" ng-model="titulo">
                </div>
@@ -49,7 +92,8 @@
             </div>
             <div class="row gy-2">
                <div class="col-6">
-                  <select class="form-select col-6" aria-label="Default select example" ng-model="tipoNoticiaFilter" ng-init="tipoNoticiaFilter='Todos'" ng-change="TipoDeNoticiaSelector(tipoNoticiaFilter)">
+                  <select class="form-select col-6" aria-label="Default select example" ng-model="tipoNoticiaFilter"
+                     ng-init="tipoNoticiaFilter='Todos'" ng-change="TipoDeNoticiaSelector(tipoNoticiaFilter)">
                      <option value="Todos" selected>Todos</option>
                      <option value="Manchete">Manchete</option>
                      <option value="Normal">Normal</option>
@@ -78,7 +122,8 @@
                            <p class="card-text" ng-bind="formatarData('{{noticia.DataPublicacao}}')"></p>
                            <p class="card-text"> Publicado à {{ noticia.idade | number:0 }} dia(s).</p>
                         </span>
-                        <p class="card-text"> <i class="fas fa-map-marker-alt"></i> {{ noticia.Localidade.Title }} </p>
+                        <p class="card-text"> <i class="fas fa-map-marker-alt"></i> {{ noticia.Localidade.Title }}
+                        </p>
                         <p class="card-text"> <i class="fas fa-user"></i> {{ noticia.AutorNoticia.Title }} </p>
                         <input class="form-check-input" type="checkbox" id="showSummaryCheck" ng-model="descricao">
                         <label class="form-check-label" for="showSummaryCheck"> Exibir Descrição </label>
@@ -95,7 +140,8 @@
                         <ul ng-repeat="attachment in noticia.AttachmentFiles.results"
                            ng-if="noticia.AttachmentFiles.results">
                            <p class="card-text"> <i class="fas fa-paperclip"></i> <a
-                                 href="{{attachment.ServerRelativeUrl}}" target="_blank"> {{attachment.FileName}} </a>
+                                 href="{{attachment.ServerRelativeUrl}}" target="_blank"> {{attachment.FileName}}
+                              </a>
                            </p>
                         </ul>
                         </p>
